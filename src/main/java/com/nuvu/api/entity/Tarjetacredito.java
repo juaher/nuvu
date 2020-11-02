@@ -10,6 +10,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -35,6 +37,7 @@ public class Tarjetacredito implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Long id;
@@ -44,14 +47,14 @@ public class Tarjetacredito implements Serializable {
     @Basic(optional = false)
     @Column(name = "fechavencimiento")
     private String fechavencimiento;
+    @JsonIgnore
     @Column(name = "cvv")
-    private String cvv;
+    private int cvv;
     @JoinColumn(name = "franquiciaid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Franquicia franquiciaid;
     @JoinColumn(name = "clienteid", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    @JsonIgnore
     private Cliente clienteid;
 
     public Tarjetacredito() {
@@ -91,11 +94,11 @@ public class Tarjetacredito implements Serializable {
         this.fechavencimiento = fechavencimiento;
     }
 
-    public String getCvv() {
+    public int getCvv() {
         return cvv;
     }
 
-    public void setCvv(String cvv) {
+    public void setCvv(int cvv) {
         this.cvv = cvv;
     }
 

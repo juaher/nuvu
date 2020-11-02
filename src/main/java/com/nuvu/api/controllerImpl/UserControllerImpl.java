@@ -6,9 +6,8 @@
 package com.nuvu.api.controllerImpl;
 
 import com.nuvu.api.controller.UserController;
-import com.nuvu.api.entity.Usuario;
+import com.nuvu.api.model.LoginModel;
 import com.nuvu.api.repository.UsuarioRepository;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +19,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -43,14 +40,13 @@ public class UserControllerImpl implements UserController {
     private int jwtExpirationMs;
 
     @Override
-    @PostMapping(value = "login", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> login(@RequestBody Usuario usuario) {
-        String md5Pass = DigestUtils.md5Hex(usuario.getPassword()).toUpperCase();
-        final int existUser = userRepository.existsByUsernameAndPassword(usuario.getUsername(), md5Pass);
+    @PostMapping(value = "login")
+    public ResponseEntity<?> login(@RequestBody LoginModel login) {
+        final int existUser = userRepository.existsByUsernameAndPassword(login.getUsername(), login.getpassMd5());
         if (existUser == 0) {
             return ResponseEntity.ok("Credenciales inválidas");
         }
-        String token = getJWTToken(usuario.getUsername());
+        String token = getJWTToken(login.getUsername());
         return ResponseEntity.ok(token);
     }
 

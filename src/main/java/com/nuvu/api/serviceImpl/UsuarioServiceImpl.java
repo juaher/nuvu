@@ -5,23 +5,17 @@
  */
 package com.nuvu.api.serviceImpl;
 
-import com.nuvu.api.entity.Cliente;
 import com.nuvu.api.entity.Usuario;
-import com.nuvu.api.repository.ClienteRepository;
 import com.nuvu.api.repository.UsuarioRepository;
-import com.nuvu.api.service.ClienteService;
 import com.nuvu.api.service.UsuarioService;
-import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author juanh
  */
-@Service("usuarioService")
+@Service
 public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired

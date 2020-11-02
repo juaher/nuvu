@@ -6,6 +6,7 @@
 package com.nuvu.api.controller;
 
 import com.nuvu.api.entity.Cliente;
+import com.nuvu.api.model.ClienteModel;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public interface ClienteController {
 
     public Cliente cliente(Long id);
 
-    public Cliente save(Cliente cliente, String token);
+    public Cliente save(ClienteModel cliente, String token);
     
      
 

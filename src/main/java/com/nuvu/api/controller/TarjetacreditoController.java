@@ -7,6 +7,7 @@ package com.nuvu.api.controller;
 
 import com.nuvu.api.entity.Cliente;
 import com.nuvu.api.entity.Tarjetacredito;
+import com.nuvu.api.model.TarjetacreditoModel;
 import java.util.List;
 
 /**
@@ -17,6 +18,6 @@ import java.util.List;
 public interface TarjetacreditoController {
 
     public List<Tarjetacredito> tarjetacreditoByCliente(Long clienteId);
-    public Tarjetacredito save(Tarjetacredito tarjetacredito);
+    public Tarjetacredito save(TarjetacreditoModel tarjetacredito);
 
 }

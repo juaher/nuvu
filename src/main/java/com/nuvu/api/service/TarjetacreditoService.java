@@ -10,11 +10,12 @@ package com.nuvu.api.service;
  * @author juanh
  */
 import com.nuvu.api.entity.Tarjetacredito;
+import com.nuvu.api.model.TarjetacreditoModel;
 import java.util.List;
 
 
 public interface TarjetacreditoService {
 	public List<Tarjetacredito> findByCliente(Long clienteId);
         public Tarjetacredito findByNumero(Long numero);
-        public Tarjetacredito save(Tarjetacredito tarjetacredito);
+        public Tarjetacredito save(TarjetacreditoModel tarjetacredito);
 }

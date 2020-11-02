@@ -10,6 +10,8 @@ package com.nuvu.api.service;
  * @author juanh
  */
 import com.nuvu.api.entity.Cliente;
+import com.nuvu.api.entity.Usuario;
+import com.nuvu.api.model.ClienteModel;
 import java.util.List;
 
 
@@ -17,5 +19,5 @@ public interface ClienteService {
 	public List<Cliente> findAllClientes();
 	public Cliente findClienteById(Long id);
         public Cliente findClienteByDocumento(String documento);
-	public Cliente save(Cliente cliente);
+	public Cliente save(ClienteModel cliente, Usuario usuario);
 }

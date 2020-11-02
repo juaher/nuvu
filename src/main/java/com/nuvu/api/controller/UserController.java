@@ -5,7 +5,7 @@
  */
 package com.nuvu.api.controller;
 
-import com.nuvu.api.entity.Usuario;
+import com.nuvu.api.model.LoginModel;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserController {
 
-    public ResponseEntity<?> login(Usuario usuario);
+    public ResponseEntity<?> login(LoginModel login);
     public String logout();
 
 }

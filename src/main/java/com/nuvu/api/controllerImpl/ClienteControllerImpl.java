@@ -8,6 +8,7 @@ package com.nuvu.api.controllerImpl;
 import com.nuvu.api.controller.ClienteController;
 import com.nuvu.api.entity.Cliente;
 import com.nuvu.api.entity.Usuario;
+import com.nuvu.api.model.ClienteModel;
 import com.nuvu.api.service.ClienteService;
 import com.nuvu.api.service.UsuarioService;
 import com.nuvu.security.jwt.JWTAuthorizationFilter;
@@ -57,17 +58,14 @@ public class ClienteControllerImpl implements ClienteController {
     @Override
     //@RequestMapping(value = "add", method = RequestMethod.POST, produces = "application/json")
     @PutMapping(value = "/clientes", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Cliente save(@RequestBody Cliente cliente, @RequestHeader(value = "Authorization") String token) {
+    public Cliente save(@RequestBody ClienteModel cliente, @RequestHeader(value = "Authorization") String token) {
         Cliente clienteExistente = clienteService.findClienteByDocumento(cliente.getDocumento());
         if (clienteExistente != null) {
             return clienteExistente;
         }
         String username = JWTAuthorizationFilter.getUserNameByToken(token);
         Usuario usuario = usuarioService.findByUsername(username);
-        cliente.setUsuariocreacion(usuario);
-        cliente.setUsuariomodificacion(usuario);
-        cliente.setFechamodificacion(Calendar.getInstance().getTime());
-        return clienteService.save(cliente);
+        return clienteService.save(cliente, usuario);
     }
 
 }

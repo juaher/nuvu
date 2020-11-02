@@ -7,6 +7,7 @@ package com.nuvu.api.controllerImpl;
 
 import com.nuvu.api.controller.TarjetacreditoController;
 import com.nuvu.api.entity.Tarjetacredito;
+import com.nuvu.api.model.TarjetacreditoModel;
 import com.nuvu.api.service.TarjetacreditoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class TarjetacreditoControllerImpl implements TarjetacreditoController {
 
     @Override
     @PutMapping(value = "/tarjetas", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Tarjetacredito save(@RequestBody Tarjetacredito tarjetacredito) {
+    public Tarjetacredito save(@RequestBody TarjetacreditoModel tarjetacredito) {
         Tarjetacredito tarjetacreditoExistente = tarjetacreditoService.findByNumero(tarjetacredito.getNumero());
         if (tarjetacreditoExistente != null) {
             return tarjetacreditoExistente;

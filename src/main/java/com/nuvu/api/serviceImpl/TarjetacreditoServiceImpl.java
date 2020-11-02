@@ -6,11 +6,15 @@
 package com.nuvu.api.serviceImpl;
 
 import com.nuvu.api.entity.Cliente;
+import com.nuvu.api.entity.Franquicia;
 import com.nuvu.api.entity.Tarjetacredito;
+import com.nuvu.api.model.TarjetacreditoModel;
 import com.nuvu.api.repository.ClienteRepository;
 import com.nuvu.api.repository.TarjetacreditoRepository;
 import com.nuvu.api.service.ClienteService;
 import com.nuvu.api.service.TarjetacreditoService;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author juanh
  */
-@Service("clienteService")
+@Service
 public class TarjetacreditoServiceImpl implements TarjetacreditoService {
     
     @Autowired
@@ -33,8 +37,22 @@ public class TarjetacreditoServiceImpl implements TarjetacreditoService {
     }
     
     @Override
-    public Tarjetacredito save(Tarjetacredito tarjetacredito) {
-        return tarjetacreditoRepository.save(tarjetacredito);
+    public Tarjetacredito save(TarjetacreditoModel tarjetacredito) {
+        Long tarjetaId = tarjetacredito.getId();
+        Tarjetacredito tarjetaEntity = new Tarjetacredito();
+        if (tarjetaId != null) {
+            Optional<Tarjetacredito> respuesta = tarjetacreditoRepository.findById(tarjetaId);
+            if (respuesta.isPresent()) {
+                tarjetaEntity = respuesta.get();
+            } 
+        }
+        tarjetaEntity.setCvv(tarjetacredito.getCvv());
+        tarjetaEntity.setFechavencimiento(tarjetacredito.getFechavencimiento());
+        tarjetaEntity.setNumero(tarjetacredito.getNumero());
+        tarjetaEntity.setClienteid(new Cliente(tarjetacredito.getClienteid()));
+        tarjetaEntity.setFranquiciaid(new Franquicia(tarjetacredito.getFranquiciaid()));
+        tarjetaEntity.setClienteid(new Cliente(tarjetacredito.getClienteid()));
+        return tarjetacreditoRepository.saveAndFlush(tarjetaEntity);
     }
 
     @Override
